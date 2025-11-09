@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Raja Rani Chor Sipahi — Play</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07060a;
+  --panel:#0f0f13;
+  --accent:#ff3b6b;
+  --accent-2:#7c3aed;
+  --glass:rgba(255,255,255,0.04);
+  --muted:rgba(255,255,255,0.55);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  background:radial-gradient(1200px 600px at 10% 10%, rgba(124,58,237,0.08), transparent),
+            radial-gradient(800px 400px at 90% 90%, rgba(255,59,107,0.06), transparent),
+            var(--bg);
+  color:#fff;
+  font-family:Inter,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:28px;
+}
+.shell{
+  width:1180px;
+  height:720px;
+  border-radius:18px;
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  display:grid;
+  grid-template-columns:280px 1fr 320px;
+  gap:22px;
+  padding:22px;
+  box-shadow: 0 10px 40px rgba(2,6,23,0.7), inset 0 1px 0 rgba(255,255,255,0.02);
+  position:relative;
+  overflow:hidden;
+}
+.left{
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+  border-radius:12px;
+  padding:20px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  align-items:flex-start;
+  justify-content:flex-start;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+}
+.top-left{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  width:100%;
+}
+.profile{
+  width:72px;
+  height:72px;
+  border-radius:12px;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  position:relative;
+  cursor:pointer;
+  flex-shrink:0;
+}
+.profile img{width:100%;height:100%;object-fit:cover;display:block}
+.nameBox{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  flex:1;
+}
+.nameLabel{
+  font-size:13px;
+  color:var(--muted);
+  letter-spacing:0.6px;
+  text-transform:uppercase;
+}
+.nameInput{
+  background:transparent;
+  border:none;
+  outline:none;
+  color:#fff;
+  font-weight:700;
+  font-size:18px;
+  font-family:Playfair Display, serif;
+}
+.smallNote{font-size:12px;color:var(--muted)}
+.button{
+  background:linear-gradient(90deg,var(--accent),var(--accent-2));
+  padding:12px 18px;
+  border-radius:10px;
+  font-weight:700;
+  cursor:pointer;
+  color:#fff;
+  border:none;
+  transition:transform .12s ease, box-shadow .12s;
+  box-shadow:0 6px 18px rgba(124,58,237,0.12);
+}
+.button:active{transform:translateY(2px);box-shadow:0 3px 10px rgba(124,58,237,0.06)}
+.controls{display:flex;flex-direction:column;gap:12px;width:100%}
+.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:10px 12px;border-radius:10px;color:var(--muted);display:flex;justify-content:space-between;align-items:center}
+.stats{display:flex;gap:10px;align-items:center}
+.stat{
+  background:var(--glass);
+  padding:10px;
+  border-radius:8px;
+  min-width:68px;
+  text-align:center;
+  font-weight:700;
+}
+.hint{font-size:13px;color:var(--muted)}
+.center{
+  position:relative;
+  border-radius:12px;
+  overflow:hidden;
+  background:linear-gradient(180deg, rgba(20,20,24,0.6), rgba(8,8,10,0.6));
+  box-shadow:0 8px 40px rgba(2,6,23,0.6);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.cinematic{
+  position:absolute;
+  inset:0;
+  z-index:4;
+  pointer-events:none;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:0;
+  overflow:hidden;
+}
+.cinematic .flow{
+  position:absolute;
+  width:140%;
+  height:140%;
+  left:-20%;
+  top:-20%;
+  background-image:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,59,107,0.03));
+  transform:skewY(-6deg);
+  animation:flow 18s linear infinite;
+  mix-blend-mode:overlay;
+}
+@keyframes flow{0%{transform:translateX(-40%) skewY(-6deg)}50%{transform:translateX(0%) skewY(-6deg)}100%{transform:translateX(40%) skewY(-6deg)}}
+.stageWrap{
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+}
+.stage{
+  width:820px;
+  height:600px;
+  border-radius:10px;
+  background:linear-gradient(180deg,#0b0b0e, #070609);
+  box-shadow: inset 0 4px 30px rgba(0,0,0,0.6);
+  position:relative;
+  overflow:hidden;
+  transform:translateZ(0);
+}
+.uiTop{
+  position:absolute;
+  left:22px;
+  top:18px;
+  z-index:6;
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+.logoBadge{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:8px 12px;
+  border-radius:12px;
+  background:linear-gradient(90deg, rgba(255,255,255,0.03), transparent);
+  backdrop-filter: blur(4px);
+  font-weight:800;
+  color:#fff;
+}
+.logoMark{
+  width:44px;height:44px;border-radius:8px;background:linear-gradient(180deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-family:Playfair Display,serif;font-weight:800;color:#fff;font-size:20px;
+}
+.canvasWrap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:70px}
+#gameCanvas{width:740px;height:420px;border-radius:8px;background:linear-gradient(180deg,#06060a,#0b0b0f);box-shadow:0 10px 40px rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.03)}
+.overlayHUD{position:absolute;right:26px;top:18px;display:flex;flex-direction:column;gap:8px;align-items:flex-end;z-index:6}
+.tag{background:linear-gradient(90deg,rgba(255,255,255,0.03),transparent);padding:8px 12px;border-radius:10px;font-weight:700}
+.right{
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+  border-radius:12px;
+  padding:20px;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+  align-items:center;
+  box-shadow:0 6px 20px rgba(0,0,0,0.6);
+}
+.logoBig{width:140px;height:140px;border-radius:14px;background:linear-gradient(135deg,var(--accent-2),var(--accent));display:flex;align-items:center;justify-content:center;font-family:Playfair Display,serif;font-size:34px;font-weight:900;color:#fff;position:relative;overflow:hidden;box-shadow:0 12px 40px rgba(124,58,237,0.18)}
+.logoBig:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 20% 10%, rgba(255,255,255,0.04), transparent)}
+.leaderboard{width:100%;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:12px;border-radius:12px;display:flex;flex-direction:column;gap:10px;align-items:stretch}
+.leaderHead{display:flex;justify-content:space-between;align-items:center}
+.leaderList{display:flex;flex-direction:column;gap:8px;max-height:320px;overflow:auto;padding-right:6px}
+.leaderItem{display:flex;align-items:center;gap:10px;padding:8px;border-radius:10px;background:linear-gradient(90deg, rgba(255,255,255,0.02), transparent);font-weight:700}
+.leaderRank{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.3);font-size:13px}
+.leaderName{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.animImgRow{position:absolute;bottom:-40px;left:0;width:100%;display:flex;gap:10px;padding:20px;pointer-events:none;z-index:3;animation:rise 20s linear infinite}
+.animImgRow img{width:160px;height:90px;object-fit:cover;border-radius:8px;filter:grayscale(20%) saturate(120%);transform:translateY(30px);opacity:0.12}
+@keyframes rise{0%{transform:translateY(40px)}50%{transform:translateY(-18px)}100%{transform:translateY(40px)}}
+.footerBar{display:flex;gap:10px;align-items:center;width:100%;justify-content:space-between;padding-top:8px}
+.smallBtn{padding:8px 12px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.04);cursor:pointer;color:var(--muted)}
+.switch{display:flex;gap:8px;align-items:center}
+.hideOnSmall{display:inline-block}
+.controls .startWrap{margin-top:8px}
+.fileInput{display:none}
+@media (max-width:1280px){
+  .shell{transform:scale(.92)}
+}
+@media (max-width:980px){
+  body{padding:10px}
+  .shell{width:100%;height:88vh;grid-template-columns:220px 1fr 260px}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="left">
+    <div class="top-left">
+      <label class="profile" id="profileBtn">
+        <img id="profileImg" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&auto=format&fit=crop&crop=faces" />
+      </label>
+      <div class="nameBox">
+        <div class="nameLabel">PLAYER</div>
+        <input id="nameInput" class="nameInput" value="RajaIsagi" />
+        <div class="smallNote">Click profile to change picture</div>
+      </div>
+    </div>
+    <div class="controls">
+      <div class="secondary">
+        <div>
+          <div class="hint">ROLE</div>
+          <div style="font-weight:800">Raja</div>
+        </div>
+        <div class="stats">
+          <div class="stat" id="statScore">0</div>
+          <div class="hint">Score</div>
+        </div>
+      </div>
+      <div class="startWrap">
+        <button class="button" id="startBtn">Start Game</button>
+      </div>
+      <div class="hint">Controls: Arrow keys to move • Space to dash • Click Start to begin</div>
+      <div class="secondary">
+        <div>
+          <div class="hint">Lives</div>
+          <div class="stat" id="statLives">3</div>
+        </div>
+        <div>
+          <div class="hint">Level</div>
+          <div class="stat" id="statLevel">1</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:auto;width:100%">
+        <button class="smallBtn" id="saveScore">Save Score</button>
+        <button class="smallBtn" id="resetLB">Reset LB</button>
+      </div>
+    </div>
+    <input id="filePicker" class="fileInput" type="file" accept="image/*" />
+  </div>
+
+  <div class="center">
+    <div class="cinematic">
+      <div class="flow"></div>
+    </div>
+    <div class="stageWrap">
+      <div class="stage">
+        <div class="uiTop">
+          <div class="logoBadge">
+            <div class="logoMark">RR</div>
+            <div>RajaRani</div>
+          </div>
+        </div>
+        <div class="overlayHUD">
+          <div class="tag" id="hudState">Exploring</div>
+          <div class="tag" id="hudMsg">Collect jewels avoid Chor</div>
+        </div>
+        <div class="canvasWrap">
+          <canvas id="gameCanvas" width="1160" height="640"></canvas>
+        </div>
+        <div class="animImgRow" id="cinImgs">
+          <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=800&auto=format&fit=crop" />
+          <img src="https://images.unsplash.com/photo-1505685296765-3a2736de412f?q=80&w=800&auto=format&fit=crop" />
+          <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?q=80&w=800&auto=format&fit=crop" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="logoBig" id="bigLogo">RR</div>
+    <div class="leaderboard">
+      <div class="leaderHead">
+        <div style="font-weight:800">Leaderboard</div>
+        <div class="hint" id="lbCount">Top 5</div>
+      </div>
+      <div class="leaderList" id="leaderList"></div>
+    </div>
+    <div style="width:100%;display:flex;gap:10px;align-items:center;justify-content:space-between">
+      <div style="display:flex;flex-direction:column">
+        <div class="hint">Theme</div>
+        <div style="display:flex;gap:8px;margin-top:6px">
+          <button class="smallBtn" id="themeDark">Dark</button>
+          <button class="smallBtn" id="themeNeo">Neo</button>
+        </div>
+      </div>
+      <div style="text-align:right">
+        <div class="hint">Best</div>
+        <div style="font-weight:900;font-size:18px" id="bestScore">0</div>
+      </div>
+    </div>
+    <div class="footerBar">
+      <div class="hint">Built for fun</div>
+      <div style="display:flex;gap:8px">
+        <button id="shareBtn" class="smallBtn">Share</button>
+        <button id="helpBtn" class="smallBtn">How to</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<audio id="bgm" src="https://cdn.pixabay.com/download/audio/2023/09/06/audio_5e86b0e80f.mp3?filename=tokyo-ghoul-unravel-instrumental-remix-2023.mp3" loop></audio>
+<audio id="collectS" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_6a7c2c7b4a.mp3?filename=collect-coin-01.mp3"></audio>
+<audio id="hitS" src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_2a9b4e7ae3.mp3?filename=hit-sound.mp3"></audio>
+<audio id="dashS" src="https://cdn.pixabay.com/download/audio/2023/07/24/audio_2f6b4e3b9f.mp3?filename=dash-01.mp3"></audio>
+
+<script>
+let canvas=document.getElementById('gameCanvas'),ctx=canvas.getContext('2d');
+let startBtn=document.getElementById('startBtn'),nameInput=document.getElementById('nameInput'),profileBtn=document.getElementById('profileBtn'),filePicker=document.getElementById('filePicker'),profileImg=document.getElementById('profileImg');
+let statScore=document.getElementById('statScore'),statLives=document.getElementById('statLives'),statLevel=document.getElementById('statLevel');
+let leaderList=document.getElementById('leaderList'),bestScoreEl=document.getElementById('bestScore'),lbCount=document.getElementById('lbCount');
+let hudState=document.getElementById('hudState'),hudMsg=document.getElementById('hudMsg'),cinImgs=document.getElementById('cinImgs');
+let bgm=document.getElementById('bgm'),collectS=document.getElementById('collectS'),hitS=document.getElementById('hitS'),dashS=document.getElementById('dashS');
+let saveScoreBtn=document.getElementById('saveScore'),resetLB=document.getElementById('resetLB'),shareBtn=document.getElementById('shareBtn'),helpBtn=document.getElementById('helpBtn');
+let themeDark=document.getElementById('themeDark'),themeNeo=document.getElementById('themeNeo');
+let playerName=localStorage.getItem('rr_name')||nameInput.value,playerImg=localStorage.getItem('rr_img'),leaderboard=JSON.parse(localStorage.getItem('rr_lb')||'[]');
+if(playerImg)profileImg.src=playerImg;
+nameInput.value=playerName;
+let gameState='idle',score=0,lives=3,level=1,bestScore=localStorage.getItem('rr_best')||0;
+bestScoreEl.textContent=bestScore;
+statScore.textContent=score;statLives.textContent=lives;statLevel.textContent=level;
+function renderLB(){
+  leaderList.innerHTML='';
+  let sorted=leaderboard.slice().sort((a,b)=>b.score-a.score).slice(0,5);
+  sorted.forEach((p,i)=>{
+    let el=document.createElement('div');el.className='leaderItem';
+    let rk=document.createElement('div');rk.className='leaderRank';rk.textContent=i+1;
+    let img=document.createElement('img');img.src=p.img||'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop&crop=faces';img.style.width='36px';img.style.height='36px';img.style.borderRadius='8px';img.style.objectFit='cover';
+    let nm=document.createElement('div');nm.className='leaderName';nm.textContent=p.name;
+    let sc=document.createElement('div');sc.style.fontWeight='900';sc.textContent=p.score;
+    el.appendChild(rk);el.appendChild(img);el.appendChild(nm);el.appendChild(sc);
+    leaderList.appendChild(el);
+  });
+  lbCount.textContent='Top '+Math.min(sorted.length,5);
+}
+renderLB();
+function savePlayer(){
+  localStorage.setItem('rr_name',nameInput.value);
+  if(profileImg.src) localStorage.setItem('rr_img',profileImg.src);
+}
+nameInput.addEventListener('change',()=>{savePlayer()});
+profileBtn.addEventListener('click',()=>{filePicker.click()});
+filePicker.addEventListener('change',ev=>{
+  let f=ev.target.files[0];
+  if(!f) return;
+  let r=new FileReader();
+  r.onload=function(e){profileImg.src=e.target.result;savePlayer();renderLB()};
+  r.readAsDataURL(f);
+});
+startBtn.addEventListener('click',()=>{if(gameState==='running') return;startGame()});
+saveScoreBtn.addEventListener('click',()=>{leaderboard.push({name:nameInput.value,img:profileImg.src,score:score});localStorage.setItem('rr_lb',JSON.stringify(leaderboard));if(score>bestScore){bestScore=score;localStorage.setItem('rr_best',bestScore)}renderLB()});
+resetLB.addEventListener('click',()=>{leaderboard=[];localStorage.setItem('rr_lb',JSON.stringify(leaderboard));renderLB()});
+shareBtn.addEventListener('click',()=>{navigator.share?navigator.share({title:'Raja Rani Chor Sipahi',text:'Play my score: '+score,url:location.href}):alert('Copy link: '+location.href)});
+helpBtn.addEventListener('click',()=>{alert('Move with arrows. Space for dash. Collect jewels. Avoid Chor and Sipahi. Save score when done.')});
+themeNeo.addEventListener('click',()=>{document.documentElement.style.setProperty('--accent','#00f5a0');document.documentElement.style.setProperty('--accent-2','#00c2ff')});
+themeDark.addEventListener('click',()=>{document.documentElement.style.setProperty('--accent','#ff3b6b');document.documentElement.style.setProperty('--accent-2','#7c3aed')});
+let cw=canvas.width,ch=canvas.height;
+let player={x:140,y:ch-120,w:48,h:64,vy:0,alive:true,dir:1,dashCooldown:0};
+let obstacles=[],collectibles=[],enemies=[],frames=0;
+function spawnObstacle(){
+  let w=60;let h=40 + Math.random()*80;let x=cw + Math.random()*200;let y=ch - h - (Math.random()<0.3?60:0);
+  obstacles.push({x,y,w,h,type:Math.random()<0.2?'pillar':'bench'});
+}
+function spawnCollect(){
+  let x=cw + 200 + Math.random()*400;let y=ch - 160 - Math.random()*200;collectibles.push({x,y,r:12,vy:0});
+}
+function spawnEnemy(){
+  let x=cw + 120 + Math.random()*300;let y=ch - 100;let t=Math.random()<0.5?'chor':'sipahi';enemies.push({x,y,t,vx:1.6 + Math.random()*0.8,pat:0});
+}
+function resetScene(){obstacles=[];collectibles=[];enemies=[];score=0;lives=3;level=1;frames=0;player.x=140;player.y=ch-120;player.vy=0;player.alive=true;player.dashCooldown=0;statScore.textContent=score;statLives.textContent=lives;statLevel.textContent=level;hudState.textContent='Exploring';hudMsg.textContent='Collect jewels avoid Chor';}
+resetScene();
+function startGame(){
+  resetScene();
+  gameState='running';
+  bgm.volume=0.18;
+  bgm.play().catch(()=>{});
+  loop();
+}
+function loop(){
+  if(gameState!=='running') return;
+  frames++;
+  if(frames%140===0) spawnObstacle();
+  if(frames%100===0) spawnCollect();
+  if(frames%240===0) spawnEnemy();
+  if(Math.random()<0.002) cinematicBurst();
+  updateLogic();
+  draw();
+  requestAnimationFrame(loop);
+}
+function updateLogic(){
+  player.vy+=0.85;
+  player.y+=player.vy;
+  if(player.y>ch-90){player.y=ch-90;player.vy=0}
+  obstacles.forEach(o=>o.x-=3.2 - Math.min(level*0.2,1.8));
+  collectibles.forEach(c=>c.x-=3.5);
+  enemies.forEach(e=>{e.x-=e.vx + Math.min(level*0.2,1.6);e.pat+=0.04; if(e.t==='sipahi' && Math.abs(e.x-player.x)<180) e.vx=2.8; if(e.x<-160) e.x=cw+200});
+  obstacles=obstacles.filter(o=>o.x+o.w> -120);
+  collectibles=collectibles.filter(c=>c.x> -60);
+  enemies=enemies.filter(e=>e.x>-160);
+  collectibles.forEach((c,i)=>{
+    let dx=(player.x+player.w/2)-c.x;
+    let dy=(player.y+player.h/2)-c.y;
+    if(Math.hypot(dx,dy)<48){score+=10;collectS.currentTime=0;collectS.play();collectibles.splice(i,1);statScore.textContent=score;if(score>bestScore){bestScore=score;bestScoreEl.textContent=bestScore}}});
+  enemies.forEach((e,i)=>{
+    let dx=Math.abs((player.x+player.w/2)-e.x);
+    let dy=Math.abs((player.y+player.h/2)-e.y);
+    if(dx<48 && dy<48){
+      if(e.t==='chor'){score=Math.max(0,score-20);hitS.currentTime=0;hitS.play();hudMsg.textContent='Chor stole some jewels!';enemies.splice(i,1)}
+      else {lives--;hitS.currentTime=0;hitS.play();statLives.textContent=lives;hudMsg.textContent='Sipahi hit you!';enemies.splice(i,1);if(lives<=0){endGame()}}}
+  });
+  if(frames%900===0){level++;statLevel.textContent=level;hudState.textContent='Danger Increase';hudMsg.textContent='Sipahi patrols faster'}
+  player.dashCooldown=Math.max(0,player.dashCooldown-1);
+}
+function draw(){
+  ctx.clearRect(0,0,cw,ch);
+  let g=ctx.createLinearGradient(0,0,0,ch);g.addColorStop(0,'#07101a');g.addColorStop(1,'#05040a');ctx.fillStyle=g;ctx.fillRect(0,0,cw,ch);
+  drawParallax();
+  obstacles.forEach(o=>{
+    ctx.fillStyle='rgba(255,255,255,0.03)';ctx.fillRect(o.x,o.y,o.w,o.h);
+    ctx.fillStyle='#111';ctx.fillRect(o.x+6,o.y+6,o.w-12,o.h-12);
+  });
+  collectibles.forEach(c=>{
+    ctx.beginPath();ctx.fillStyle=level%2?'#ffd166':'#00f5a0';ctx.arc(c.x,c.y,c.r,0,Math.PI*2);ctx.fill();ctx.closePath();
+    ctx.fillStyle='rgba(255,255,255,0.06)';ctx.fillRect(c.x-20,c.y+18,40,6);
+  });
+  enemies.forEach(e=>{
+    ctx.fillStyle=e.t==='chor'?'#ff5b5b':'#558bff';
+    ctx.fillRect(e.x-18,e.y-40,36,48);
+    ctx.fillStyle='#111';ctx.fillRect(e.x-12,e.y-30,24,30);
+  });
+  ctx.save();ctx.translate(player.x,player.y);
+  ctx.fillStyle='linear-gradient(180deg,#fff,#ddd)';ctx.fillStyle='#fff';
+  ctx.fillRect(-player.w/2, -player.h/2, player.w, player.h);
+  ctx.restore();
+  ctx.fillStyle='rgba(0,0,0,0.12)';ctx.fillRect(0,ch-60,cw,60);
+  ctx.fillStyle='#fff';ctx.font='18px Inter';ctx.fillText('Score: '+score,20,ch-28);ctx.fillText('Lives: '+lives,160,ch-28);ctx.fillText('Level: '+level,260,ch-28);
+  drawCinematicOverlays();
+}
+let parallaxSeed=0;
+function drawParallax(){parallaxSeed+=0.01; for(let i=0;i<6;i++){ctx.fillStyle='rgba(255,255,255,'+(0.02+i*0.01)+')';let px=(Math.sin(parallaxSeed*(0.3+i*0.1))+1)*40*i;ctx.fillRect(px, ch-110-(i*12), cw+120, 14 - i*1.2)}}
+function drawCinematicOverlays(){ctx.save();ctx.globalCompositeOperation='overlay';ctx.fillStyle='rgba(124,58,237,0.02)';ctx.fillRect(0,0,cw,ch);ctx.restore();}
+function cinematicBurst(){
+  hudState.textContent='Cinematic';
+  hudMsg.textContent='A tale unfolds';
+  let imgs=cinImgs.querySelectorAll('img');imgs.forEach((im,idx)=>{im.style.transition='transform 1.6s ease,opacity 1.6s ease';im.style.transform='translateY(-20px) scale(1.05)';im.style.opacity=0.26;setTimeout(()=>{im.style.transform='translateY(30px) scale(1)';im.style.opacity=0.12},1600)});
+  setTimeout(()=>{hudState.textContent='Exploring';hudMsg.textContent='Collect jewels avoid Chor'},3200);
+}
+function endGame(){
+  gameState='over';
+  bgm.pause();
+  showOverlayEnd();
+}
+function showOverlayEnd(){
+  let overlay=document.createElement('div');overlay.style.position='absolute';overlay.style.inset='0';overlay.style.display='flex';overlay.style.alignItems='center';overlay.style.justifyContent='center';overlay.style.background='linear-gradient(180deg,rgba(0,0,0,0.5),rgba(0,0,0,0.7))';overlay.style.zIndex=999;
+  let card=document.createElement('div');card.style.background='linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.02))';card.style.padding='24px';card.style.borderRadius='12px';card.style.textAlign='center';card.style.width='420px';
+  let t=document.createElement('div');t.style.fontSize='22px';t.style.fontWeight=800;t.style.marginBottom='8px';t.textContent='Game Over';
+  let s=document.createElement('div');s.style.fontSize='18px';s.style.marginBottom='14px';s.textContent='Score: '+score;
+  let btns=document.createElement('div');btns.style.display='flex';btns.style.gap='12px';btns.style.justifyContent='center';
+  let r=document.createElement('button');r.className='button';r.textContent='Restart';r.onclick=()=>{document.body.removeChild(overlay);startGame()};
+  let save=document.createElement('button');save.className='smallBtn';save.textContent='Save Score';save.onclick=()=>{leaderboard.push({name:nameInput.value,img:profileImg.src,score:score});localStorage.setItem('rr_lb',JSON.stringify(leaderboard));if(score>bestScore){bestScore=score;localStorage.setItem('rr_best',bestScore)}renderLB();alert('Saved');};
+  btns.appendChild(r);btns.appendChild(save);
+  card.appendChild(t);card.appendChild(s);card.appendChild(btns);overlay.appendChild(card);document.body.appendChild(overlay);
+}
+window.addEventListener('keydown',e=>{
+  if(gameState!=='running') return;
+  if(e.key==='ArrowLeft'){player.x=Math.max(40,player.x-8);player.dir=-1}
+  if(e.key==='ArrowRight'){player.x=Math.min(cw-80,player.x+8);player.dir=1}
+  if(e.key==='ArrowUp'&&(player.y>50)){player.vy=-12}
+  if(e.key===' '&&player.dashCooldown<=0){dashS.currentTime=0;dashS.play();player.x+=player.dir*120;player.dashCooldown=60}
+});
+window.addEventListener('resize',()=>{let r=document.querySelector('.shell').getBoundingClientRect();canvas.width=1160;canvas.height=640;cw=canvas.width;ch=canvas.height});
+renderLB();
+</script>
+</body>
+</html>
