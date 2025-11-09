@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Raja Rani Chor Sipahi — Local</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#07060a;--panel:#0f0f13;--accent:#ff3b6b;--accent2:#7c3aed;--glass:rgba(255,255,255,0.04);--muted:rgba(255,255,255,0.55)}
+*{box-sizing:border-box}html,body{height:100%}body{margin:0;background:
+radial-gradient(1200px 600px at 10% 10%, rgba(124,58,237,0.06), transparent),
+radial-gradient(800px 400px at 90% 90%, rgba(255,59,107,0.04), transparent),
+var(--bg);font-family:Inter,system-ui,Segoe UI,Roboto,Arial;color:#fff;display:flex;align-items:center;justify-content:center;padding:20px}
+.app{width:1180px;height:720px;border-radius:16px;padding:20px;display:grid;grid-template-columns:280px 1fr 320px;gap:20px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:0 20px 60px rgba(2,6,23,0.7)}
+.left{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:18px;border-radius:12px;display:flex;flex-direction:column;gap:12px}
+.profile{width:74px;height:74px;border-radius:12px;overflow:hidden;background:linear-gradient(135deg,var(--accent),var(--accent2));cursor:pointer;display:flex;align-items:center;justify-content:center}
+.profile img{width:100%;height:100%;object-fit:cover}
+.nameInput{background:transparent;border:none;outline:none;color:#fff;font-weight:800;font-size:18px;font-family:Playfair Display,serif}
+.small{font-size:13px;color:var(--muted)}
+.button{background:linear-gradient(90deg,var(--accent),var(--accent2));padding:12px;border-radius:10px;border:none;color:#fff;font-weight:800;cursor:pointer}
+.controls{display:flex;flex-direction:column;gap:10px}
+.secondary{background:var(--glass);padding:10px;border-radius:10px;display:flex;justify-content:space-between;align-items:center}
+.right{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:18px;border-radius:12px;display:flex;flex-direction:column;gap:14px}
+.logoBig{width:140px;height:140px;border-radius:14px;background:linear-gradient(135deg,var(--accent2),var(--accent));display:flex;align-items:center;justify-content:center;font-family:Playfair Display,serif;font-size:34px;font-weight:900;color:#fff;position:relative;overflow:hidden}
+.leaderboard{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:12px;border-radius:12px;}
+.leaderList{display:flex;flex-direction:column;gap:8px;max-height:340px;overflow:auto;padding-right:6px}
+.leaderItem{display:flex;align-items:center;gap:10px;padding:8px;border-radius:10px;background:linear-gradient(90deg, rgba(255,255,255,0.02), transparent);font-weight:700}
+.center{border-radius:12px;background:linear-gradient(180deg,#0a0a0d,#070609);display:flex;flex-direction:column;overflow:hidden;position:relative}
+.header{display:flex;justify-content:space-between;align-items:center;padding:18px 22px;border-bottom:1px solid rgba(255,255,255,0.02)}
+.stage{flex:1;display:flex;align-items:center;justify-content:center;position:relative}
+.canvasCard{width:88%;height:70%;border-radius:12px;background:linear-gradient(180deg,#05060a,#0b0b0f);box-shadow:inset 0 4px 30px rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.cinematic{position:absolute;inset:0;pointer-events:none;z-index:3;display:flex;align-items:center;justify-content:center}
+.cinematic .bar{width:200%;height:120%;left:-50%;top:-10%;background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,59,107,0.03));transform:skewY(-6deg);animation:flow 18s linear infinite}
+@keyframes flow{0%{transform:translateX(-40%) skewY(-6deg)}50%{transform:translateX(0%) skewY(-6deg)}100%{transform:translateX(40%) skewY(-6deg)}}
+.centerPanel{position:relative;z-index:4;color:#fff;display:flex;flex-direction:column;align-items:center;gap:14px}
+.bigTitle{font-family:Playfair Display,serif;font-size:28px;font-weight:800}
+.hint{color:var(--muted);font-size:13px}
+.modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:9999}
+.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:12px;width:560px;box-shadow:0 20px 60px rgba(2,6,23,0.7)}
+.row{display:flex;gap:10px;align-items:center}
+.playerRow{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+.pip{width:44px;height:44px;border-radius:8px;overflow:hidden;background:#222;display:flex;align-items:center;justify-content:center}
+.pip img{width:100%;height:100%;object-fit:cover}
+.roleBadge{padding:8px 12px;border-radius:10px;background:linear-gradient(90deg, rgba(255,255,255,0.03), transparent);font-weight:800}
+.smallBtn{padding:8px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--muted);cursor:pointer}
+.voteGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.voteBtn{padding:12px;border-radius:10px;border:none;background:linear-gradient(90deg,#111,#0e0e12);cursor:pointer;color:#fff;font-weight:800}
+.timer{font-weight:900;background:linear-gradient(90deg,var(--accent),var(--accent2));padding:8px 12px;border-radius:8px}
+.hidden{display:none}
+.footer{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;border-top:1px solid rgba(255,255,255,0.02)}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="left">
+    <div style="display:flex;gap:12px;align-items:center">
+      <label class="profile" id="profileBtn"><img id="profileImg" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&auto=format&fit=crop&crop=faces" /></label>
+      <div style="flex:1">
+        <div class="small">PLAYER</div>
+        <input id="nameInput" class="nameInput" value="Player1" />
+        <div class="small" style="margin-top:6px">Click avatar to change</div>
+      </div>
+    </div>
+    <div class="controls">
+      <div class="secondary">
+        <div>
+          <div class="small">ROLE (Preview)</div>
+          <div style="font-weight:800" id="rolePreview">—</div>
+        </div>
+        <div style="text-align:right">
+          <div class="small">Rounds</div>
+          <div style="font-weight:800" id="roundCount">0</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="button" id="startBtn">Start Game</button>
+        <button class="smallBtn" id="setupBtn">Setup</button>
+      </div>
+      <div class="small">Players</div>
+      <div id="playersSetup" style="display:flex;flex-direction:column;gap:8px"></div>
+      <div style="display:flex;gap:8px;margin-top:auto">
+        <button class="smallBtn" id="saveLB">Save LB</button>
+        <button class="smallBtn" id="clearLB">Clear LB</button>
+      </div>
+    </div>
+    <input id="filePicker" type="file" accept="image/*" style="display:none" />
+  </div>
+
+  <div class="center">
+    <div class="header">
+      <div style="display:flex;gap:12px;align-items:center">
+        <div class="logoBadge" style="display:flex;gap:10px;padding:8px 12px;border-radius:12px;background:linear-gradient(90deg, rgba(255,255,255,0.03), transparent)">
+          <div style="width:46px;height:46px;border-radius:10px;background:linear-gradient(90deg,var(--accent2),var(--accent));display:flex;align-items:center;justify-content:center;font-weight:900;font-family:Playfair Display">RR</div>
+          <div style="font-weight:800">RajaRani</div>
+        </div>
+        <div class="small hint" id="sessionInfo">Local • Hot-seat</div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:center">
+        <div class="small">Current Round</div>
+        <div class="timer" id="roundTimer">0</div>
+      </div>
+    </div>
+    <div class="stage">
+      <div class="canvasCard">
+        <div class="cinematic"><div class="bar"></div></div>
+        <div class="centerPanel">
+          <div class="bigTitle">Raja Rani Chor Sipahi</div>
+          <div class="hint" id="stageHint">Press Start to begin local hot-seat rounds</div>
+          <div style="display:flex;gap:12px">
+            <button class="button" id="actionBtn">Idle</button>
+            <button class="smallBtn" id="nextBtn">Next</button>
+          </div>
+          <div id="revealArea" style="margin-top:8px"></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="small">Designed for local play • Pass the device</div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <div class="small">Best</div>
+        <div style="font-weight:900" id="bestScore">0</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="logoBig" id="bigLogo">RR</div>
+    <div class="leaderboard">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <div style="font-weight:800">Leaderboard</div>
+        <div class="small" id="lbInfo">Local</div>
+      </div>
+      <div class="leaderList" id="leaderList"></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div class="small">Round Length</div>
+        <select id="roundLen" style="background:transparent;border-radius:8px;padding:6px;border:1px solid rgba(255,255,255,0.04);color:#fff">
+          <option value="45">45s</option>
+          <option value="60" selected>60s</option>
+          <option value="90">90s</option>
+        </select>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;justify-content:space-between">
+        <div class="small">Players</div>
+        <div style="display:flex;gap:6px">
+          <button class="smallBtn" id="decP">-</button>
+          <div id="plCount" style="width:32px;text-align:center;font-weight:800">4</div>
+          <button class="smallBtn" id="incP">+</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modal" class="modal hidden">
+  <div class="card" id="modalCard"></div>
+</div>
+
+<audio id="revealS" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_44a267e10c.mp3?filename=wing-flap.mp3"></audio>
+<audio id="successS" src="https://cdn.pixabay.com/download/audio/2023/04/02/audio_7c85a99a5b.mp3?filename=funny-lose-sound.mp3"></audio>
+
+<script>
+let filePicker=document.getElementById('filePicker'),profileBtn=document.getElementById('profileBtn'),profileImg=document.getElementById('profileImg'),nameInput=document.getElementById('nameInput');
+let startBtn=document.getElementById('startBtn'),setupBtn=document.getElementById('setupBtn'),playersSetup=document.getElementById('playersSetup');
+let actionBtn=document.getElementById('actionBtn'),nextBtn=document.getElementById('nextBtn'),stageHint=document.getElementById('stageHint'),revealArea=document.getElementById('revealArea');
+let modal=document.getElementById('modal'),modalCard=document.getElementById('modalCard'),roundTimer=document.getElementById('roundTimer');
+let leaderList=document.getElementById('leaderList'),bestScoreEl=document.getElementById('bestScore'),roundCount=document.getElementById('roundCount');
+let decP=document.getElementById('decP'),incP=document.getElementById('incP'),plCount=document.getElementById('plCount'),roundLen=document.getElementById('roundLen');
+let revealS=document.getElementById('revealS'),successS=document.getElementById('successS'),saveLB=document.getElementById('saveLB'),clearLB=document.getElementById('clearLB');
+let saveBtn=document.getElementById('saveLB');
+
+let playersNum=4;plCount.textContent=playersNum;
+let players=[];let rolesPool=['Raja','Rani','Chor','Sipahi'];let round=0;let roundSeconds=60;let timerInt=null;let votesNeeded=0;
+let leaderboard=JSON.parse(localStorage.getItem('rr_local_lb')||'[]');let bestScore=localStorage.getItem('rr_local_best')||0;bestScoreEl.textContent=bestScore;
+function initPlayers(n){
+  players=[];for(let i=0;i<n;i++){players.push({id:i,name:localStorage.getItem('rr_pname_'+i)||('Player'+(i+1)),img:localStorage.getItem('rr_pimg_'+i)||'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&auto=format&fit=crop&crop=faces',role:null,score:0})}
+  renderPlayersSetup();
+  renderLB();
+}
+function renderPlayersSetup(){
+  playersSetup.innerHTML='';players.forEach((p,i)=>{let row=document.createElement('div');row.className='playerRow';let pip=document.createElement('div');pip.className='pip';let im=document.createElement('img');im.src=p.img;pip.appendChild(im);let nm=document.createElement('input');nm.value=p.name;nm.style.background='transparent';nm.style.border='none';nm.style.color='#fff';nm.style.fontWeight='800';nm.style.outline='none';nm.addEventListener('change',()=>{p.name=nm.value;localStorage.setItem('rr_pname_'+i,p.name);renderLB()});let btn=document.createElement('button');btn.className='smallBtn';btn.textContent='Clear';btn.onclick=()=>{localStorage.removeItem('rr_pimg_'+i);p.img='https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&auto=format&fit=crop&crop=faces';im.src=p.img;renderLB()};row.appendChild(pip);row.appendChild(nm);row.appendChild(btn);playersSetup.appendChild(row)})}
+profileBtn.addEventListener('click',()=>{filePicker.click()})
+filePicker.addEventListener('change',e=>{let f=e.target.files[0];if(!f) return;let r=new FileReader();r.onload=e=>{profileImg.src=e.target.result;localStorage.setItem('rr_profile',profileImg.src)};r.readAsDataURL(f)})
+nameInput.addEventListener('change',()=>{localStorage.setItem('rr_local_name',nameInput.value)})
+decP.addEventListener('click',()=>{if(playersNum>2) playersNum--; plCount.textContent=playersNum;initPlayers(playersNum)})
+incP.addEventListener('click',()=>{if(playersNum<6) playersNum++; plCount.textContent=playersNum;initPlayers(playersNum)})
+roundLen.addEventListener('change',()=>{roundSeconds=parseInt(roundLen.value)})
+setupBtn.addEventListener('click',()=>{openSetupModal()})
+function openSetupModal(){
+  modal.classList.remove('hidden');modalCard.innerHTML='';
+  let html=document.createElement('div');html.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><div style="font-weight:900">Players Setup</div><div class="small">Local hot-seat</div></div>';
+  for(let i=0;i<playersNum;i++){let pr=document.createElement('div');pr.style.display='flex';pr.style.alignItems='center';pr.style.gap='8px';pr.style.marginBottom='8px';let pip=document.createElement('div');pip.className='pip';let im=document.createElement('img');im.src=players[i]?players[i].img:'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&auto=format&fit=crop&crop=faces';pip.appendChild(im);let nm=document.createElement('input');nm.value=players[i]?players[i].name:'Player';nm.style.background='transparent';nm.style.border='none';nm.style.color='#fff';nm.style.fontWeight='800';nm.addEventListener('change',()=>{players[i].name=nm.value;localStorage.setItem('rr_pname_'+i,nm.value)});let up=document.createElement('button');up.className='smallBtn';up.textContent='Upload';up.onclick=(()=>{let idx=i;return ()=>{let f=document.createElement('input');f.type='file';f.accept='image/*';f.onchange=function(ev){let file=ev.target.files[0];if(!file) return;let r=new FileReader();r.onload=e=>{players[idx].img=e.target.result;localStorage.setItem('rr_pimg_'+idx,players[idx].img);im.src=players[idx].img;renderLB()};r.readAsDataURL(file)};f.click()}})();pr.appendChild(pip);pr.appendChild(nm);pr.appendChild(up);html.appendChild(pr)}
+  let actions=document.createElement('div');actions.style.display='flex';actions.style.justifyContent='flex-end';actions.style.gap='8px';let close=document.createElement('button');close.className='smallBtn';close.textContent='Close';close.onclick=()=>{modal.classList.add('hidden')};actions.appendChild(close);html.appendChild(actions);modalCard.appendChild(html)
+}
+startBtn.addEventListener('click',()=>{openLoadingAndStart()})
+function openLoadingAndStart(){
+  modal.classList.remove('hidden');modalCard.innerHTML='';
+  let l=document.createElement('div');l.innerHTML='<div style="font-weight:900;font-size:20px;margin-bottom:8px">Preparing Game</div><div class="small" style="margin-bottom:12px">Shuffling roles and setting scene</div>';
+  let bar=document.createElement('div');bar.style.height='12px';bar.style.background='rgba(255,255,255,0.03)';bar.style.borderRadius='10px';bar.style.overflow='hidden';let fill=document.createElement('div');fill.style.width='0%';fill.style.height='100%';fill.style.background='linear-gradient(90deg,var(--accent),var(--accent2))';fill.style.transition='width 2.8s ease';bar.appendChild(fill);l.appendChild(bar);modalCard.appendChild(l);
+  setTimeout(()=>{fill.style.width='100%'},60);
+  setTimeout(()=>{modal.classList.add('hidden');assignRoles();startRound()},3000)
+}
+function assignRoles(){
+  let n=playersNum;let available=[];
+  if(n>=4){available=['Raja','Rani','Chor','Sipahi']; while(available.length<n){available.push('Sipahi')}}
+  else if(n===3){available=['Raja','Chor','Sipahi']}
+  else if(n===2){available=['Raja','Chor']}
+  let pool=available.slice(0,n);
+  let shuffled=[];let copy=pool.slice();
+  while(copy.length){let idx=Math.floor(Math.random()*copy.length);shuffled.push(copy.splice(idx,1)[0])}
+  players.forEach((p,i)=>{p.role=shuffled[i]||'Citizen';p.score=0})
+  round=0;roundCount.textContent=round;
+  renderLB();
+}
+function startRound(){
+  round++;roundCount.textContent=round;stageHint.textContent='Reveal roles one by one';revealArea.innerHTML='';currentRevealIndex=0;actionBtn.textContent='Reveal Role';actionBtn.onclick=revealRole;nextBtn.onclick=()=>{if(currentRevealIndex<players.length) revealRole(); else beginDiscussion()}
+}
+let currentRevealIndex=0;
+function revealRole(){
+  if(currentRevealIndex>=players.length) return;
+  let p=players[currentRevealIndex];
+  modal.classList.remove('hidden');modalCard.innerHTML='';
+  let html=document.createElement('div');html.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div style="font-weight:900">'+p.name+'</div><div class="small">Player '+(currentRevealIndex+1)+'</div></div>';
+  let box=document.createElement('div');box.style.display='flex';box.style.gap='12px';let pip=document.createElement('div');pip.className='pip';let im=document.createElement('img');im.src=p.img;pip.appendChild(im);let info=document.createElement('div');info.style.display='flex';info.style.flexDirection='column';info.style.gap='8px';let roleBadge=document.createElement('div');roleBadge.className='roleBadge';roleBadge.textContent='Tap to reveal';info.appendChild(roleBadge);box.appendChild(pip);box.appendChild(info);html.appendChild(box);
+  let btns=document.createElement('div');btns.style.display='flex';btns.style.justifyContent='flex-end';btns.style.gap='8px';btns.style.marginTop='12px';let view=document.createElement('button');view.className='button';view.textContent='Reveal';view.onclick=()=>{roleBadge.textContent=p.role;roleBadge.style.background='linear-gradient(90deg,var(--accent),var(--accent2))';revealS.currentTime=0;revealS.play()};let ok=document.createElement('button');ok.className='smallBtn';ok.textContent='Done';ok.onclick=()=>{modal.classList.add('hidden');currentRevealIndex++;if(currentRevealIndex>=players.length){beginDiscussion()} else {stageHint.textContent='Pass device to next player'}};btns.appendChild(view);btns.appendChild(ok);html.appendChild(btns);modalCard.appendChild(html)
+}
+function beginDiscussion(){
+  let secs=roundSeconds;stageHint.textContent='Discussion: talk and plan';startTimer(secs,()=>{openVoting()});roundTimer.textContent=secs
+}
+function startTimer(sec,onEnd){
+  clearInterval(timerInt);let s=sec;roundTimer.textContent=s;timerInt=setInterval(()=>{s--;roundTimer.textContent=s;if(s<=0){clearInterval(timerInt);onEnd&&onEnd()}},1000)
+}
+let votes=[];
+function openVoting(){
+  votes=[];stageHint.textContent='Voting: secretly vote who is Chor';modal.classList.remove('hidden');modalCard.innerHTML='';
+  let html=document.createElement('div');html.innerHTML='<div style="font-weight:900;margin-bottom:8px">Voting</div><div class="small" style="margin-bottom:8px">Each player selects who they think is Chor. Pass the device secretly.</div>';
+  let grid=document.createElement('div');grid.className='voteGrid';
+  players.forEach((p,i)=>{let b=document.createElement('button');b.className='voteBtn';b.textContent=p.name; b.onclick=()=>{collectVote(i)}});players.forEach((p,i)=>{let b=document.createElement('button');b.className='voteBtn';b.textContent=p.name;grid.appendChild(b)})
+  modalCard.appendChild(html);modalCard.appendChild(grid);
+  let info=document.createElement('div');info.className='small';info.style.marginTop='10px';info.textContent='Tap a name to vote as the current player. After each vote, pass device.';modalCard.appendChild(info)
+  nextVotingTurn(0)
+}
+let votingTurn=0;
+function nextVotingTurn(turn){
+  votingTurn=turn;modalCard.querySelectorAll('.voteBtn').forEach((b,i)=>{b.disabled=false;b.onclick=()=>{recordVote(i)}});
+  modalCard.querySelector('.small') && (modalCard.querySelector('.small').textContent='Player '+(turn+1)+' ('+players[turn].name+') vote now');
+}
+function recordVote(targetIndex){
+  votes.push({from:votingTurn,to:targetIndex});successS.currentTime=0;successS.play();
+  if(votes.length>=players.length){modal.classList.add('hidden');tallyVotes()} else {nextVotingTurn(votes.length)}
+}
+function tallyVotes(){
+  let counts={};votes.forEach(v=>{counts[v.to]=(counts[v.to]||0)+1});
+  let max=-1,accusedIdx=0;for(let k in counts){if(counts[k]>max){max=counts[k];accusedIdx=parseInt(k)}}
+  resolveRound(accusedIdx,counts)
+}
+function resolveRound(accusedIdx,counts){
+  let accused=players[accusedIdx];
+  let results=document.createElement('div');results.style.display='flex';results.style.flexDirection='column';results.style.gap='12px';
+  let title=document.createElement('div');title.style.fontWeight='900';title.textContent='Round Results';results.appendChild(title);
+  let row=document.createElement('div');row.style.display='flex';row.style.gap='12px';row.style.alignItems='center';
+  let pip=document.createElement('div');pip.className='pip';let im=document.createElement('img');im.src=accused.img;pip.appendChild(im);row.appendChild(pip);
+  let txt=document.createElement('div');txt.innerHTML='<div style="font-weight:800">'+accused.name+'</div><div class="small">Accused</div>';row.appendChild(txt);results.appendChild(row);
+  let voteSummary=document.createElement('div');voteSummary.className='small';voteSummary.textContent='Vote counts: '+Object.entries(counts).map(([k,v])=>players[k].name+':'+v).join(' • ');results.appendChild(voteSummary);
+  let outcome=document.createElement('div');outcome.style.fontWeight='800';
+  if(accused.role==='Chor'){outcome.textContent='Accused was Chor • Raja & Rani gain points';players.forEach(p=>{if(p.role!=='Chor') p.score+=20})}
+  else {outcome.textContent='Accused was NOT Chor • Chor steals points';players.forEach(p=>{if(p.role==='Chor') p.score+=30})}
+  results.appendChild(outcome);
+  let scoreList=document.createElement('div');scoreList.style.display='flex';scoreList.style.flexDirection='column';scoreList.style.gap='6px';players.forEach(p=>{let el=document.createElement('div');el.style.display='flex';el.style.justifyContent='space-between';el.style.gap='8px';el.innerHTML='<div style="display:flex;gap:8px;align-items:center"><div class="pip" style="width:36px;height:36px"><img src="'+p.img+'"></div><div style="font-weight:800">'+p.name+'</div></div><div style="font-weight:900">'+p.score+'</div>';scoreList.appendChild(el)});results.appendChild(scoreList);
+  modal.classList.remove('hidden');modalCard.innerHTML='';modalCard.appendChild(results);
+  let btns=document.createElement('div');btns.style.display='flex';btns.style.justifyContent='flex-end';btns.style.gap='8px';btns.style.marginTop='12px';let cont=document.createElement('button');cont.className='button';cont.textContent='Next Round';cont.onclick=()=>{modal.classList.add('hidden');prepareNextRound()};let end=document.createElement('button');end.className='smallBtn';end.textContent='End Game';end.onclick=()=>{modal.classList.add('hidden');endGame()};btns.appendChild(end);btns.appendChild(cont);modalCard.appendChild(btns);
+  renderLB();updateBest();
+}
+function prepareNextRound(){
+  assignRoles();startRound();
+}
+function endGame(){
+  stageHint.textContent='Game Ended';let board=document.createElement('div');board.style.display='flex';board.style.flexDirection='column';board.style.gap='10px';let t=document.createElement('div');t.style.fontWeight='900';t.textContent='Final Scores';board.appendChild(t);players.forEach(p=>{let el=document.createElement('div');el.style.display='flex';el.style.justifyContent='space-between';el.style.gap='8px';el.innerHTML='<div style="display:flex;gap:8px;align-items:center"><div class="pip" style="width:36px;height:36px"><img src="'+p.img+'"></div><div style="font-weight:800">'+p.name+'</div></div><div style="font-weight:900">'+p.score+'</div>';board.appendChild(el)});modal.classList.remove('hidden');modalCard.innerHTML='';modalCard.appendChild(board);
+  let save=document.createElement('div');save.style.display='flex';save.style.justifyContent='flex-end';save.style.gap='8px';save.style.marginTop='12px';let savBtn=document.createElement('button');savBtn.className='button';savBtn.textContent='Save To Leaderboard';savBtn.onclick=()=>{players.forEach(p=>{leaderboard.push({name:p.name,score:p.score,img:p.img})});localStorage.setItem('rr_local_lb',JSON.stringify(leaderboard));renderLB();updateBest();alert('Saved')};let close=document.createElement('button');close.className='smallBtn';close.textContent='Close';close.onclick=()=>{modal.classList.add('hidden')};save.appendChild(close);save.appendChild(savBtn);modalCard.appendChild(save)
+}
+function renderLB(){
+  leaderList.innerHTML='';let sorted=leaderboard.slice().sort((a,b)=>b.score-a.score).slice(0,10);sorted.forEach((p,i)=>{let el=document.createElement('div');el.className='leaderItem';let rk=document.createElement('div');rk.style.width='28px';rk.style.display='flex';rk.style.alignItems='center';rk.style.justifyContent='center';rk.style.background='rgba(0,0,0,0.3)';rk.style.borderRadius='8px';rk.textContent=i+1;let img=document.createElement('img');img.src=p.img;img.style.width='36px';img.style.height='36px';img.style.borderRadius='8px';img.style.objectFit='cover';let nm=document.createElement('div');nm.style.flex='1';nm.textContent=p.name;let sc=document.createElement('div');sc.style.fontWeight='900';sc.textContent=p.score;el.appendChild(rk);el.appendChild(img);el.appendChild(nm);el.appendChild(sc);leaderList.appendChild(el)})
+}
+function updateBest(){let max=0;leaderboard.forEach(l=>{if(l.score>max)max=l.score});if(players.length){players.forEach(p=>{if(p.score>max)max=p.score})}bestScore=max;localStorage.setItem('rr_local_best',bestScore);bestScoreEl.textContent=bestScore}
+saveLB.addEventListener('click',()=>{localStorage.setItem('rr_local_lb',JSON.stringify(leaderboard));alert('Leaderboard saved locally')})
+clearLB.addEventListener('click',()=>{leaderboard=[];localStorage.removeItem('rr_local_lb');renderLB();alert('Leaderboard cleared')})
+initPlayers(playersNum);
+</script>
+</body>
+</html>
